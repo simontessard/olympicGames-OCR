@@ -4,5 +4,12 @@
         <h2> Number of countries</h2>
         <p>{{ (olympics$ | async)?.length }}</p>
     </div>
+    <div class="home-chart">
+        <ngx-charts-pie-chart
+        [results]="countries"
+        [labels]="true"
+        >
+        </ngx-charts-pie-chart>
+    </div>
 </div>
 
