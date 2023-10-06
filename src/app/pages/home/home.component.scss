@@ -1,4 +1,10 @@
+@font-face {
+    font-family: Nunito;
+    src: url(../../../assets/fonts/Nunito.ttf);
+  }
+
 .home-country {
+    font-family: Nunito;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -9,18 +15,17 @@
             width: 700px;
         }
     h1 {
-        padding: 1rem;
-        background-color: #04838F;
-        color: white;
-        border-radius: 20px;
+        color: #04838F;
+        font-weight: 800;
+        font-size: 3rem;
     }
     .home-country-counter {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         gap: 5px;
-        color: gray;
-        border: #04838F 2px solid;
+        color: white;
         padding: 0.5rem;
+        background-color: #21bbc9;
         border-radius: 5px;
         h2 {
             font-size:medium;
@@ -37,7 +42,7 @@
         box-shadow: 9px 6px 8px 0px #949494;
         border-radius: 5px;
         background-color: #fafafa;
-        margin-top: 2rem;
+        margin-top: 3rem;
         width: 100%;
         height: 400px;
     }
