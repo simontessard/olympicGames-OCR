@@ -12,6 +12,7 @@ import { filter, map } from 'rxjs/operators';
 export class HomeComponent implements OnInit {
   public olympics$: Observable<any> | undefined;
   public countries2: any[] = [];
+  
 
   constructor(private olympicService: OlympicService) {}
 
@@ -38,4 +39,8 @@ export class HomeComponent implements OnInit {
       console.error('this.olympics$ is undefined');
     }
   }
+  onPieSliceSelect(event: MouseEvent){   
+    const data = event as any; 
+    console.log(data.name); 
+  } 
 }

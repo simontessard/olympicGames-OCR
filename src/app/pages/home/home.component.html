@@ -9,6 +9,7 @@
         <ngx-charts-pie-chart
         [results]="countries2"
         [labels]="true"
+        (select)="onPieSliceSelect($event)"
         >
         </ngx-charts-pie-chart>
     </div>
