@@ -1,0 +1,22 @@
+@font-face {
+    font-family: Nunito;
+    src: url(../../assets/fonts/Nunito.ttf);
+  }
+
+.country-detail {
+    font-family: Nunito;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-inline: auto;
+    @media only screen and (min-width : 1024px) {
+            width: 700px;
+    }
+    h1 {
+        color: #04838F;
+        font-weight: 800;
+        font-size: 3rem;
+    }
+}

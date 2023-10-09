@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { Olympic } from 'src/app/core/models/Olympic';
 import { filter, map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -11,10 +12,9 @@ import { filter, map } from 'rxjs/operators';
 })
 export class HomeComponent implements OnInit {
   public olympics$: Observable<any> | undefined;
-  public countries2: any[] = [];
+  public countries2: Olympic[] = [];
   
-
-  constructor(private olympicService: OlympicService) {}
+  constructor(private olympicService: OlympicService, private router: Router) {}
 
   ngOnInit(): void {
     this.olympics$ = this.olympicService.getOlympics().pipe(
@@ -41,6 +41,7 @@ export class HomeComponent implements OnInit {
   }
   onPieSliceSelect(event: MouseEvent){   
     const data = event as any; 
-    console.log(data.name); 
+    console.log(data.name);
+    this.router.navigate(['/detail'], {queryParams: {myGetParam: data.name}});
   } 
 }
