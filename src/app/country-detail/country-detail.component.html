@@ -1,14 +1,31 @@
 <div class="country-detail">
-    <h1>{{ countryName }}</h1>
+    <h1>{{ (countryObservable | async)?.name}}</h1>
     <div class="home-country-counter">
-        <h2> Number of entries: 
-        </h2>
-        <p>{{ this.nbEntries }}</p>
-        <h2> Total number of medals: 
-        </h2>
-        <p>{{ this.totalMedals }}</p>
-        <h2> Total number of athletes: 
-        </h2>
-        <p>{{ this.totalAthletes }}</p>
+        <div class="country-info">
+            <h2> Total number of athletes: </h2>
+            <p>{{ (countryObservable | async)?.athleteCount}}</p>
+        </div>
+        <div class="country-info">
+            <h2> Total number of medals: </h2>
+            <p>{{ (countryObservable | async)?.medalsCount}}</p>
+        </div>
+        <div class="country-info">
+            <h2> Number of entries: </h2>
+            <p>{{ (countryObservable | async)?.data.length}}</p>
+        </div>
+    </div>
+    <div class="line-chart">
+        <ngx-charts-line-chart
+        [results]="(countryObservable | async)?.data"
+        [gradient]="false"
+        [xAxis]="true"
+        [yAxis]="true"
+        [legend]="true"
+        [showXAxisLabel]="true"
+        [showYAxisLabel]="true"
+        [animations]="false"
+        [xAxisLabel]="'Date'"
+        [yAxisLabel]="'Médailles'">
+        </ngx-charts-line-chart>
     </div>
 </div>
