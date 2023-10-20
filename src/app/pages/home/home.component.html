@@ -1,9 +1,16 @@
 <div class="home-country" >
     <h1>Medals per Country</h1>
-    <div class="home-country-counter">
-        <h2> Number of countries
-        </h2>
-        <p>{{ (olympics$ | async)?.length }}</p>
+    <div class="stats">
+        <div class="home-country-counter">
+            <h2> Number of countries
+            </h2>
+            <p>{{ (olympics$ | async)?.length }} </p>
+        </div>
+        <div class="home-country-counter">
+            <h2> Number of JOs
+            </h2>
+            <p>{{ this.nbJO }} </p>
+        </div>
     </div>
     <div class="home-chart">
         <ngx-charts-pie-chart

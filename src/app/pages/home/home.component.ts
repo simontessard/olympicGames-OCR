@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
   public olympics$: Observable<any> | undefined;
   public countries2: Olympic[] = [];
+  public nbJO: number = 0;
   
   constructor(private olympicService: OlympicService, private router: Router) {}
 
@@ -24,6 +25,7 @@ export class HomeComponent implements OnInit {
           name: item.country,
           // Get sum of all medals won across all participations
           value: item.participations.reduce((total, participation) => total + participation.medalsCount, 0),
+          nbJo : item.participations.length
         }));
       })
     );
@@ -34,6 +36,7 @@ export class HomeComponent implements OnInit {
     if (this.olympics$) {
       this.olympics$.subscribe(transformedData => {
         this.countries2 = transformedData;
+        this.nbJO = transformedData[0].nbJo;
       });
     } else {
       console.error('this.olympics$ is undefined');
