@@ -2,15 +2,15 @@
     <h1>{{ (countryObservable | async)?.name}}</h1>
     <div class="home-country-counter">
         <div class="country-info">
-            <h2> Total number of athletes: </h2>
+            <h2> Total number of athletes </h2>
             <p>{{ (countryObservable | async)?.athleteCount}}</p>
         </div>
         <div class="country-info">
-            <h2> Total number of medals: </h2>
+            <h2> Total number of medals </h2>
             <p>{{ (countryObservable | async)?.medalsCount}}</p>
         </div>
         <div class="country-info">
-            <h2> Number of entries: </h2>
+            <h2> Number of entries </h2>
             <p>{{ (countryObservable | async)?.data.length}}</p>
         </div>
     </div>
@@ -20,7 +20,6 @@
         [gradient]="false"
         [xAxis]="true"
         [yAxis]="true"
-        [legend]="true"
         [showXAxisLabel]="true"
         [showYAxisLabel]="true"
         [animations]="false"

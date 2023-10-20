@@ -21,20 +21,21 @@
     }
     .home-country-counter {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         gap: 5px;
-        color: white;
+        color: grey;
         padding: 0.5rem;
-        background-color: #21bbc9;
-        border-radius: 5px;
+        background-color: white;
+        border: #21bbc9 solid 2px;
+        border-radius: 10px;
         h2 {
-            font-size:medium;
             margin: 0;
         }
         p {
-            margin: 0;
             color: black;
-            font-weight: 600;
+            font-weight: 800;
+            margin: 0;
+            font-size: larger;
         }
     }
     .home-chart {
