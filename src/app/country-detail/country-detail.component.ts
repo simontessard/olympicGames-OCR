@@ -22,11 +22,11 @@ export class CountryDetailComponent {
     this.route.queryParams.subscribe(params => {
       this.countryName = params['myGetParam'];
      })
-    // Adapte le code ici pour récuperer uniquement les données du pays selon son nom
+    // Get only data of the country by this name
     this.countryObservable = this.olympicService.getOlympics().pipe(
       filter((data: Olympic[]) => !!data), // Wait for data to be defined
       map((data: Olympic[]) => {
-        const countryData = data.find(item => item.country === this.countryName); // Trouvez le pays par son nom
+        const countryData = data.find(item => item.country === this.countryName); // Find the country by his name
         const valueData: any[] = countryData?.participations.map(participation => ({
           name: participation.year,
           series: [{
@@ -35,12 +35,12 @@ export class CountryDetailComponent {
           }]
         })) || [];
         return {
-          name: countryData?.country || '', // Utilisez le nom du pays
+          name: countryData?.country,
           medalsCount: countryData?.participations.reduce((total, participation) => total + participation.medalsCount, 0),
           athleteCount: countryData?.participations.reduce((total, participation) => total + participation.athleteCount, 0),
           value: countryData?.participations,
           data: valueData,
-        };
+        }; 
       })
     );
   }
