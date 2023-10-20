@@ -11,6 +11,17 @@
         [labels]="true"
         (select)="onPieSliceSelect($event)"
         >
+        <ng-template #tooltipTemplate let-model="model">
+                <pre>{{model.value}}</pre>
+                <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" 
+                width="24" height="24" color="#000000"><defs><style>.cls-637a534e15c5759009400727-1{fill:yellow;stroke:currentColor;stroke-miterlimit:10;}</style></defs><circle 
+                class="cls-637a534e15c5759009400727-1" cx="12" cy="16.77" r="5.73"></circle><polyline class="cls-637a534e15c5759009400727-1" 
+                points="17.64 15.84 22.5 5.32 19.64 1.5 4.36 1.5 1.5 5.32 6.36 15.84"></polyline><line class="cls-637a534e15c5759009400727-1" x1="17.84" y1="5.32" x2="6.16" 
+                y2="5.32"></line><line class="cls-637a534e15c5759009400727-1" x1="9.2" y1="11.78" x2="4.36" y2="1.5"></line><line class="cls-637a534e15c5759009400727-1" x1="19.64" 
+                y1="1.5" x2="14.8" y2="11.78"></line><polygon class="cls-637a534e15c5759009400727-1" 
+                points="12 15.82 12.44 16.59 13.31 16.77 12.71 17.43 12.81 18.31 12 17.94 11.19 18.31 11.29 17.43 10.69 16.77 11.56 16.59 12 15.82">
+                </polygon></svg>
+          </ng-template>
         </ngx-charts-pie-chart>
     </div>
 </div>
