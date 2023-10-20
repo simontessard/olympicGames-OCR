@@ -4,6 +4,16 @@
   }
 
 .country-detail {
+    button {
+        font-family: Nunito;
+        margin-block: 1rem;
+        border: 0;
+        background-color: #04838F;
+        color: white;
+        border-radius: 5px;
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+    }
     font-family: Nunito;
     display: flex;
     flex-direction: column;
@@ -15,6 +25,7 @@
         width: 1000px;
     }
     h1 {
+        margin-top: 0.5rem;
         color: #04838F;
         font-weight: 800;
         font-size: 3rem;

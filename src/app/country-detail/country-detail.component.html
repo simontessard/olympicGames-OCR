@@ -1,4 +1,5 @@
 <div class="country-detail">
+    <button (click)="goHome()">Go back</button>
     <h1>{{ (countryObservable | async)?.name}}</h1>
     <div class="home-country-counter">
         <div class="country-info">

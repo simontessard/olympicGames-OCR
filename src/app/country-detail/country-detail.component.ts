@@ -5,6 +5,7 @@ import { OlympicService } from 'src/app/core/services/olympic.service';
 import { Olympic } from 'src/app/core/models/Olympic';
 import { Participation } from 'src/app/core/models/Participation';
 import { filter, map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-country-detail',
@@ -16,7 +17,7 @@ export class CountryDetailComponent {
   public countryObservable: Observable<any> | undefined;
   public countryData: Olympic[] = [];
 
-  constructor(private olympicService: OlympicService, private route: ActivatedRoute) { }
+  constructor(private olympicService: OlympicService, private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
@@ -43,5 +44,8 @@ export class CountryDetailComponent {
         }; 
       })
     );
+  }
+  goHome() {
+    this.router.navigate(['/']); // Redirige vers la page d'accueil
   }
 }
