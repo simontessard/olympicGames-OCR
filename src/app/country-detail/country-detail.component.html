@@ -1,5 +1,6 @@
 <div class="country-detail">
     <button (click)="goHome()">Go back</button>
+    <div *ngIf="this.countryName">
     <h1>{{ (countryObservable | async)?.name}}</h1>
     <div class="home-country-counter">
         <div class="country-info">
@@ -12,12 +13,12 @@
         </div>
         <div class="country-info">
             <h2> Number of entries </h2>
-            <p>{{ (countryObservable | async)?.data.length}}</p>
+            <p>{{ (countryObservable | async)?.data[0].series.length}}</p>
         </div>
     </div>
-    <div class="line-chart">
+    <div class="line-chart" *ngIf="(countryObservable | async) as country">
         <ngx-charts-line-chart
-        [results]="(countryObservable | async)?.data"
+        [results]="country.data"
         [gradient]="false"
         [xAxis]="true"
         [yAxis]="true"
@@ -28,4 +29,5 @@
         [yAxisLabel]="'Médailles'">
         </ngx-charts-line-chart>
     </div>
+</div>
 </div>

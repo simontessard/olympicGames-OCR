@@ -1,51 +1,65 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { Olympic } from 'src/app/core/models/Olympic';
 import { Participation } from 'src/app/core/models/Participation';
-import { filter, map } from 'rxjs/operators';
+import { filter, mergeMap, map, first } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-country-detail',
   templateUrl: './country-detail.component.html',
-  styleUrls: ['./country-detail.component.scss']
+  styleUrls: ['./country-detail.component.scss'],
 })
 export class CountryDetailComponent {
-  countryName: string = '';
+  countryName: string | null = null;
   public countryObservable: Observable<any> | undefined;
   public countryData: Olympic[] = [];
 
-  constructor(private olympicService: OlympicService, private route: ActivatedRoute, private router: Router) {}
+  constructor(
+    private olympicService: OlympicService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.countryName = params['myGetParam'];
-     })
+    this.countryName = this.route.snapshot.paramMap.get('id');
     // Get only data of the country by this name
     this.countryObservable = this.olympicService.getOlympics().pipe(
-      filter((data: Olympic[]) => !!data), // Wait for data to be defined
-      map((data: Olympic[]) => {
-        const countryData = data.find(item => item.country === this.countryName); // Find the country by his name
-        const valueData: any[] = countryData?.participations.map(participation => ({
-          name: participation.year,
-          series: [{
-            name: participation.year,
-            value: participation.medalsCount
-          }]
-        })) || [];
+      filter((data: Olympic[]) => !!data),
+      mergeMap((data: Olympic[]) => data), // Wait for data to be defined
+      first((data: Olympic) => data.country === this.countryName),
+      map((data: Olympic) => {
         return {
-          name: countryData?.country,
-          medalsCount: countryData?.participations.reduce((total, participation) => total + participation.medalsCount, 0),
-          athleteCount: countryData?.participations.reduce((total, participation) => total + participation.athleteCount, 0),
-          value: countryData?.participations,
-          data: valueData,
-        }; 
+          name: data.country,
+          medalsCount: data.participations.reduce(
+            (total, participation) => total + participation.medalsCount,
+            0
+          ),
+          athleteCount: data.participations.reduce(
+            (total, participation) => total + participation.athleteCount,
+            0
+          ),
+          value: data.participations,
+          data: [
+            {
+              name: data.country,
+              series:
+                data.participations.map((participation) => ({
+                  name: participation.year,
+                  value: participation.medalsCount,
+                })) || [],
+            },
+          ],
+        };
       })
     );
   }
   goHome() {
     this.router.navigate(['/']); // Redirige vers la page d'accueil
   }
+  // getOlympicsByCountryName$() {
+  //   return this.olympicService.getOlympicsByCountryName(this.countryName);
+  // }
 }

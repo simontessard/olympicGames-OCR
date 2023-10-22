@@ -4,14 +4,13 @@ import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { CountryDetailComponent } from './country-detail/country-detail.component';
 
-
 const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
   },
   {
-    path: 'detail', // wildcard
+    path: 'detail/:id', // wildcard
     component: CountryDetailComponent,
   },
   {
