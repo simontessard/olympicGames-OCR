@@ -25,41 +25,11 @@ export class CountryDetailComponent {
 
   ngOnInit(): void {
     this.countryName = this.route.snapshot.paramMap.get('id'); // Get the 'id' parameter from the route's snapshot
-    this.countryObservable = this.olympicService.getOlympics().pipe(
-      // Using RxJS operators to process data
-      filter((data: Olympic[]) => !!data), // Filter out any falsy data
-      mergeMap((data: Olympic[]) => data), // Flatten the array of data
-      first((data: Olympic) => data.country === this.countryName), // Take the first item with the matching country name
-      map((data: Olympic) => {
-        return {
-          name: data.country,
-          medalsCount: data.participations.reduce(
-            (total, participation) => total + participation.medalsCount,
-            0
-          ),
-          athleteCount: data.participations.reduce(
-            (total, participation) => total + participation.athleteCount,
-            0
-          ),
-          value: data.participations,
-          data: [
-            {
-              name: data.country,
-              series:
-                data.participations.map((participation) => ({
-                  name: participation.year,
-                  value: participation.medalsCount,
-                })) || [], // Map participation data to a new format
-            },
-          ],
-        };
-      })
+    this.countryObservable = this.olympicService.getOlympicDataByCountryName(
+      this.countryName
     );
   }
   goHome() {
     this.router.navigate(['/']); // Redirect to home page
   }
-  // getOlympicsByCountryName$() {
-  //   return this.olympicService.getOlympicsByCountryName(this.countryName);
-  // }
 }

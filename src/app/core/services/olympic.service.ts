@@ -1,8 +1,20 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { catchError, filter, map, tap } from 'rxjs/operators';
-import { Olympic, OlympicChartData } from '../models/Olympic';
+import {
+  catchError,
+  distinctUntilChanged,
+  filter,
+  first,
+  map,
+  mergeMap,
+  tap,
+} from 'rxjs/operators';
+import {
+  Olympic,
+  OlympicChartData,
+  OlympicDataForCountry,
+} from '../models/Olympic';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -56,36 +68,44 @@ export class OlympicService {
       })
     );
   }
-  // getOlympicsByCountryName(countryName: string | null) {
-  //   return this.getOlympics().pipe(
-  //     filter((data: Olympic[]) => !!data),
-  //     mergeMap((data: Olympic[]) => data), // Wait for data to be defined
-  //     distinctUntilChanged(),
-  //     first((data: Olympic) => data.country === countryName),
-  //     map((data: Olympic) => {
-  //       return {
-  //         name: data.country,
-  //         medalsCount: data.participations.reduce(
-  //           (total, participation) => total + participation.medalsCount,
-  //           0
-  //         ),
-  //         athleteCount: data.participations.reduce(
-  //           (total, participation) => total + participation.athleteCount,
-  //           0
-  //         ),
-  //         value: data.participations,
-  //         data: [
-  //           {
-  //             name: data.country,
-  //             series:
-  //               data.participations.map((participation) => ({
-  //                 name: participation.year,
-  //                 value: participation.medalsCount,
-  //               })) || [],
-  //           },
-  //         ],
-  //       };
-  //     })
-  //   );
-  // }
+  /**
+   * Retrieves Olympic data for a specific country by its name.
+   *
+   * @param countryName - The name of the country for which Olympic data is requested.
+   * @returns An observable that emits Olympic data for the specified country.
+   */
+  getOlympicDataByCountryName(
+    countryName: string | null
+  ): Observable<OlympicDataForCountry> {
+    return this.getOlympics().pipe(
+      filter((data: Olympic[]) => !!data),
+      mergeMap((data: Olympic[]) => data), // Wait for data to be defined
+      distinctUntilChanged(),
+      first((data: Olympic) => data.country === countryName),
+      map((data: Olympic) => {
+        return {
+          name: data.country,
+          medalsCount: data.participations.reduce(
+            (total, participation) => total + participation.medalsCount,
+            0
+          ),
+          athleteCount: data.participations.reduce(
+            (total, participation) => total + participation.athleteCount,
+            0
+          ),
+          value: data.participations,
+          data: [
+            {
+              name: data.country,
+              series:
+                data.participations.map((participation) => ({
+                  name: participation.year,
+                  value: participation.medalsCount,
+                })) || [],
+            },
+          ],
+        };
+      })
+    );
+  }
 }
