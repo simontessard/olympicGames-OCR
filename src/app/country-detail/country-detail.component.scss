@@ -17,6 +17,7 @@
     font-family: Nunito;
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     text-align: center;
@@ -34,6 +35,7 @@
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
+        justify-content: center;
         gap: 40px;
         .country-info {
             border: #04838F solid 2px;
