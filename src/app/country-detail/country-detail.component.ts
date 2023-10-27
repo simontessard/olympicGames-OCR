@@ -13,23 +13,23 @@ import { Router } from '@angular/router';
   styleUrls: ['./country-detail.component.scss'],
 })
 export class CountryDetailComponent {
-  countryName: string | null = null;
-  public countryObservable: Observable<any> | undefined;
-  public countryData: Olympic[] = [];
+  countryName: string | null = null; // Initialize countryName as null
+  public countryObservable: Observable<any> | undefined; // Initialize countryObservable as undefined
+  public countryData: Olympic[] = []; // Initialize countryData as an empty array
 
   constructor(
-    private olympicService: OlympicService,
-    private route: ActivatedRoute,
-    private router: Router
+    private olympicService: OlympicService, // Inject OlympicService
+    private route: ActivatedRoute, // Inject ActivatedRoute
+    private router: Router // Inject Router
   ) {}
 
   ngOnInit(): void {
-    this.countryName = this.route.snapshot.paramMap.get('id');
-    // Get only data of the country by this name
+    this.countryName = this.route.snapshot.paramMap.get('id'); // Get the 'id' parameter from the route's snapshot
     this.countryObservable = this.olympicService.getOlympics().pipe(
-      filter((data: Olympic[]) => !!data),
-      mergeMap((data: Olympic[]) => data), // Wait for data to be defined
-      first((data: Olympic) => data.country === this.countryName),
+      // Using RxJS operators to process data
+      filter((data: Olympic[]) => !!data), // Filter out any falsy data
+      mergeMap((data: Olympic[]) => data), // Flatten the array of data
+      first((data: Olympic) => data.country === this.countryName), // Take the first item with the matching country name
       map((data: Olympic) => {
         return {
           name: data.country,
@@ -49,7 +49,7 @@ export class CountryDetailComponent {
                 data.participations.map((participation) => ({
                   name: participation.year,
                   value: participation.medalsCount,
-                })) || [],
+                })) || [], // Map participation data to a new format
             },
           ],
         };
@@ -57,7 +57,7 @@ export class CountryDetailComponent {
     );
   }
   goHome() {
-    this.router.navigate(['/']); // Redirige vers la page d'accueil
+    this.router.navigate(['/']); // Redirect to home page
   }
   // getOlympicsByCountryName$() {
   //   return this.olympicService.getOlympicsByCountryName(this.countryName);
