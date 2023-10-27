@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { OlympicService } from 'src/app/core/services/olympic.service';
-import { Olympic } from 'src/app/core/models/Olympic';
+import { Olympic, OlympicDataForCountry } from 'src/app/core/models/Olympic';
 import { Participation } from 'src/app/core/models/Participation';
 import { filter, mergeMap, map, first } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -14,7 +14,8 @@ import { Router } from '@angular/router';
 })
 export class CountryDetailComponent {
   countryName: string | null = null; // Initialize countryName as null
-  public countryObservable: Observable<any> | undefined; // Initialize countryObservable as undefined
+  public countryObservable: Observable<OlympicDataForCountry> =
+    new Observable<OlympicDataForCountry>(); // Initialize countryObservable as undefined
   public countryData: Olympic[] = []; // Initialize countryData as an empty array
 
   constructor(
