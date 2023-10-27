@@ -1,9 +1,9 @@
-import { Participation } from "./Participation";
+import { Participation } from './Participation';
 
 export interface Olympic {
-    id: number;
-    country: string;
-    participations: Participation[];
+  id: number;
+  country: string;
+  participations: Participation[];
 }
 
 /*
@@ -14,3 +14,9 @@ example of an olympic country:
     participations: []
 }
 */
+
+export interface OlympicChartData {
+  name: string;
+  value: number;
+  nbJo: number;
+}

@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { OlympicService } from 'src/app/core/services/olympic.service';
-import { Olympic } from 'src/app/core/models/Olympic';
-import { filter, map } from 'rxjs/operators';
+import { OlympicChartData } from 'src/app/core/models/Olympic';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,27 +10,15 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  public olympics$: Observable<any> | undefined; // An Observable for Olympic data
-  public countries: Olympic[] = []; // An array to store transformed Olympic data
+  public olympics$: Observable<OlympicChartData[]> | undefined; // An Observable for Olympic data
+  public countries: OlympicChartData[] = []; // An array to store transformed Olympic data
   public nbJO: number = 0; // A variable to store the number of Olympic participations
 
   constructor(private olympicService: OlympicService, private router: Router) {}
 
   ngOnInit(): void {
     // When the component initializes, fetch Olympic data and transform it
-    this.olympics$ = this.olympicService.getOlympics().pipe(
-      filter((data: Olympic[]) => !!data), // Ensure that data is defined
-      map((data: Olympic[]) => {
-        return data.map((item: Olympic) => ({
-          name: item.country, // Extract the country name
-          value: item.participations.reduce(
-            (total, participation) => total + participation.medalsCount, // Calculate the total medals won
-            0
-          ),
-          nbJo: item.participations.length, // Get the number of Olympic participations
-        }));
-      })
-    );
+    this.olympics$ = this.olympicService.getOlympicsCountriesChart();
   }
 
   ngAfterViewInit(): void {

@@ -1,15 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import {
-  catchError,
-  distinctUntilChanged,
-  filter,
-  first,
-  map,
-  mergeMap,
-  tap,
-} from 'rxjs/operators';
+import { catchError, filter, map, tap } from 'rxjs/operators';
 import { Olympic } from '../models/Olympic';
 
 @Injectable({
@@ -36,6 +28,22 @@ export class OlympicService {
 
   getOlympics() {
     return this.olympics$.asObservable();
+  }
+
+  getOlympicsCountriesChart() {
+    return this.olympics$.asObservable().pipe(
+      filter((data: Olympic[]) => !!data), // Ensure that data is defined
+      map((data: Olympic[]) => {
+        return data.map((item: Olympic) => ({
+          name: item.country, // Extract the country name
+          value: item.participations.reduce(
+            (total, participation) => total + participation.medalsCount, // Calculate the total medals won
+            0
+          ),
+          nbJo: item.participations.length, // Get the number of Olympic participations
+        }));
+      })
+    );
   }
   // getOlympicsByCountryName(countryName: string | null) {
   //   return this.getOlympics().pipe(
