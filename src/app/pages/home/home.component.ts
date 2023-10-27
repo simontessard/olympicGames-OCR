@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
   public olympics$: Observable<any> | undefined; // An Observable for Olympic data
-  public countries2: Olympic[] = []; // An array to store transformed Olympic data
+  public countries: Olympic[] = []; // An array to store transformed Olympic data
   public nbJO: number = 0; // A variable to store the number of Olympic participations
 
   constructor(private olympicService: OlympicService, private router: Router) {}
@@ -38,7 +38,7 @@ export class HomeComponent implements OnInit {
     // After the view has initialized and data is available
     if (this.olympics$) {
       this.olympics$.subscribe((transformedData) => {
-        this.countries2 = transformedData; // Store the transformed data in the 'countries2' array
+        this.countries = transformedData; // Store the transformed data in the 'countries' array
         this.nbJO = transformedData[0].nbJo; // Store the number of Olympic participations in 'nbJO'
       });
     } else {
