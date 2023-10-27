@@ -2,7 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { catchError, filter, map, tap } from 'rxjs/operators';
-import { Olympic } from '../models/Olympic';
+import { Olympic, OlympicChartData } from '../models/Olympic';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -26,11 +27,21 @@ export class OlympicService {
     );
   }
 
-  getOlympics() {
+  /**
+   * Returns an observable that emits Olympic data.
+   *
+   * @returns An observable of Olympic data.
+   */
+  getOlympics(): Observable<Olympic[]> {
     return this.olympics$.asObservable();
   }
 
-  getOlympicsCountriesChart() {
+  /**
+   * Returns an observable that emits transformed Olympic data for a countries chart.
+   *
+   * @returns An observable of Olympic data transformed for a countries chart.
+   */
+  getOlympicsCountriesChart(): Observable<OlympicChartData[]> {
     return this.olympics$.asObservable().pipe(
       filter((data: Olympic[]) => !!data), // Ensure that data is defined
       map((data: Olympic[]) => {

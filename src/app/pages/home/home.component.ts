@@ -33,6 +33,12 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  /**
+   * Navigates to a detail page when a pie slice is selected based on country name.
+   *
+   * @param event - The event object containing information about the selected country.
+   * @returns void
+   */
   onPieSliceSelect(event: CountryName) {
     const data = event as CountryName;
     this.router.navigate(['/detail/' + data.name]); // Navigate to a detail page when a pie slice is selected
