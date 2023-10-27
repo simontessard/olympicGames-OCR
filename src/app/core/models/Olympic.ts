@@ -20,3 +20,7 @@ export interface OlympicChartData {
   value: number;
   nbJo: number;
 }
+
+export interface CountryName {
+  name: string;
+}

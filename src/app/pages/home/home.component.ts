@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { OlympicService } from 'src/app/core/services/olympic.service';
-import { OlympicChartData } from 'src/app/core/models/Olympic';
+import { OlympicChartData, CountryName } from 'src/app/core/models/Olympic';
 import { Router } from '@angular/router';
 
 @Component({
@@ -33,8 +33,8 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  onPieSliceSelect(event: MouseEvent) {
-    const data = event as any;
+  onPieSliceSelect(event: CountryName) {
+    const data = event as CountryName;
     this.router.navigate(['/detail/' + data.name]); // Navigate to a detail page when a pie slice is selected
   }
 }
