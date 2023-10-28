@@ -55,16 +55,42 @@ export class OlympicService {
    */
   getOlympicsCountriesChart(): Observable<OlympicChartData[]> {
     return this.olympics$.asObservable().pipe(
-      filter((data: Olympic[]) => !!data), // Ensure that data is defined
+      filter((data: Olympic[]) => !!data),
       map((data: Olympic[]) => {
-        return data.map((item: Olympic) => ({
-          name: item.country, // Extract the country name
-          value: item.participations.reduce(
-            (total, participation) => total + participation.medalsCount, // Calculate the total medals won
-            0
-          ),
-          nbJo: item.participations.length, // Get the number of Olympic participations
-        }));
+        return data.map((item: Olympic) => {
+          // Utilisez Set pour obtenir des années uniques par pays
+          const uniqueYears = new Set<number>();
+          item.participations.forEach((participation) => {
+            uniqueYears.add(participation.year);
+          });
+
+          return {
+            name: item.country,
+            value: item.participations.reduce(
+              (total, participation) => total + participation.medalsCount,
+              0
+            ),
+          };
+        });
+      })
+    );
+  }
+  /**
+   * Returns an observable that emits the number of JO
+   *
+   * @returns An observable of a number
+   */
+  getNbJo(): Observable<number> {
+    return this.olympics$.asObservable().pipe(
+      filter((data: Olympic[]) => !!data),
+      map((data: Olympic[]) => {
+        const uniqueYears = new Set<number>();
+        data.forEach((item: Olympic) => {
+          item.participations.forEach((participation) => {
+            uniqueYears.add(participation.year);
+          });
+        });
+        return uniqueYears.size;
       })
     );
   }

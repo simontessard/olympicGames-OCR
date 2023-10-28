@@ -19,14 +19,16 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     // When the component initializes, fetch Olympic data and transform it
     this.olympics$ = this.olympicService.getOlympicsCountriesChart();
+    this.olympicService.getNbJo().subscribe((totalJo) => {
+      this.nbJO = totalJo;
+    });
   }
 
   ngAfterViewInit(): void {
     // After the view has initialized and data is available
     if (this.olympics$) {
       this.olympics$.subscribe((transformedData) => {
-        this.countries = transformedData; // Store the transformed data in the 'countries' array
-        this.nbJO = transformedData[0].nbJo; // Store the number of Olympic participations in 'nbJO'
+        this.countries = transformedData; // Store the transformed data in the 'countries' arra
       });
     } else {
       console.error('this.olympics$ is undefined'); // Log an error if 'olympics$' is undefined

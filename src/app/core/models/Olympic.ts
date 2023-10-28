@@ -18,7 +18,6 @@ example of an olympic country:
 export interface OlympicChartData {
   name: string;
   value: number;
-  nbJo: number;
 }
 
 export interface OlympicDataForCountry {
