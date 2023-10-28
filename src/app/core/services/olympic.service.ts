@@ -49,17 +49,19 @@ export class OlympicService {
   }
 
   /**
-   * Returns an observable that emits transformed Olympic data for a countries chart.
+   * Returns an observable that emits both the number of JO and transformed Olympic data for a countries chart.
    *
-   * @returns An observable of Olympic data transformed for a countries chart.
+   * @returns An observable of an object containing the number of JO and Olympic data transformed for a countries chart.
    */
-  getOlympicsCountriesChart(): Observable<OlympicChartData[]> {
+  getOlympicsData(): Observable<{
+    nbJo: number;
+    chartData: OlympicChartData[];
+  }> {
     return this.olympics$.asObservable().pipe(
       filter((data: Olympic[]) => !!data),
       map((data: Olympic[]) => {
-        return data.map((item: Olympic) => {
-          // Utilisez Set pour obtenir des années uniques par pays
-          const uniqueYears = new Set<number>();
+        const uniqueYears = new Set<number>();
+        const chartData: OlympicChartData[] = data.map((item: Olympic) => {
           item.participations.forEach((participation) => {
             uniqueYears.add(participation.year);
           });
@@ -72,25 +74,8 @@ export class OlympicService {
             ),
           };
         });
-      })
-    );
-  }
-  /**
-   * Returns an observable that emits the number of JO
-   *
-   * @returns An observable of a number
-   */
-  getNbJo(): Observable<number> {
-    return this.olympics$.asObservable().pipe(
-      filter((data: Olympic[]) => !!data),
-      map((data: Olympic[]) => {
-        const uniqueYears = new Set<number>();
-        data.forEach((item: Olympic) => {
-          item.participations.forEach((participation) => {
-            uniqueYears.add(participation.year);
-          });
-        });
-        return uniqueYears.size;
+
+        return { nbJo: uniqueYears.size, chartData };
       })
     );
   }

@@ -10,7 +10,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  public olympics$: Observable<OlympicChartData[]> | undefined; // An Observable for Olympic data
   public countries: OlympicChartData[] = []; // An array to store transformed Olympic data
   public nbJO: number = 0; // A variable to store the number of Olympic participations
 
@@ -18,21 +17,10 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     // When the component initializes, fetch Olympic data and transform it
-    this.olympics$ = this.olympicService.getOlympicsCountriesChart();
-    this.olympicService.getNbJo().subscribe((totalJo) => {
-      this.nbJO = totalJo;
+    this.olympicService.getOlympicsData().subscribe((data) => {
+      this.countries = data.chartData;
+      this.nbJO = data.nbJo;
     });
-  }
-
-  ngAfterViewInit(): void {
-    // After the view has initialized and data is available
-    if (this.olympics$) {
-      this.olympics$.subscribe((transformedData) => {
-        this.countries = transformedData; // Store the transformed data in the 'countries' arra
-      });
-    } else {
-      console.error('this.olympics$ is undefined'); // Log an error if 'olympics$' is undefined
-    }
   }
 
   /**
