@@ -13,7 +13,7 @@
         </div>
         <div class="country-info" *ngIf="countryObservable | async as countryData">
             <h2> Number of entries </h2>
-            <p>{{ countryData.data[0]?.series.length }}</p>
+            <p>{{ countryData.data[0].series.length }}</p>
           </div>
     </div>
     <div class="line-chart" *ngIf="(countryObservable | async) as country">

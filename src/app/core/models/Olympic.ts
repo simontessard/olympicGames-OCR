@@ -20,12 +20,18 @@ export interface OlympicChartData {
   value: number;
 }
 
+// Data format for line chart in country detail page
+export interface OlympicCountryChartData {
+  name: string;
+  series: Array<object>;
+}
+
 export interface OlympicDataForCountry {
   name: string;
   medalsCount: number;
   athleteCount: number;
   value: Participation[];
-  data: Array<any>;
+  data: Array<OlympicCountryChartData>;
 }
 
 export interface CountryName {
