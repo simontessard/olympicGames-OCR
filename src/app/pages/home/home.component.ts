@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { OlympicChartData, CountryName } from 'src/app/core/models/Olympic';
 import { Router } from '@angular/router';
@@ -12,15 +12,25 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
   public countries!: OlympicChartData[]; // An array to store transformed Olympic data
   public nbJO!: number; // A variable to store the number of Olympic participations
+  private olympicsDataSubscription!: Subscription;
 
   constructor(private olympicService: OlympicService, private router: Router) {}
 
   ngOnInit(): void {
     // When the component initializes, fetch Olympic data and transform it
-    this.olympicService.getOlympicsData().subscribe((data) => {
-      this.countries = data.chartData;
-      this.nbJO = data.nbJo;
-    });
+    this.olympicsDataSubscription = this.olympicService
+      .getOlympicsData()
+      .subscribe((data) => {
+        this.countries = data.chartData;
+        this.nbJO = data.nbJo;
+      });
+  }
+
+  ngOnDestroy(): void {
+    // Unsubscribe to avoid memory leaks
+    if (this.olympicsDataSubscription) {
+      this.olympicsDataSubscription.unsubscribe();
+    }
   }
 
   /**
