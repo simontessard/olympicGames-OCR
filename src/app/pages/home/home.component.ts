@@ -10,8 +10,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  public countries: OlympicChartData[] = []; // An array to store transformed Olympic data
-  public nbJO: number = 0; // A variable to store the number of Olympic participations
+  public countries!: OlympicChartData[]; // An array to store transformed Olympic data
+  public nbJO!: number; // A variable to store the number of Olympic participations
 
   constructor(private olympicService: OlympicService, private router: Router) {}
 

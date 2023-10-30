@@ -14,9 +14,8 @@ import { Router } from '@angular/router';
 })
 export class CountryDetailComponent {
   countryName: string | null = null; // Initialize countryName as null
-  public countryObservable: Observable<OlympicDataForCountry> =
-    new Observable<OlympicDataForCountry>(); // Initialize countryObservable as undefined
-  public countryData: Olympic[] = []; // Initialize countryData as an empty array
+  public countryObservable!: Observable<OlympicDataForCountry>; // Initialize countryObservable as undefined
+  public countryData!: Olympic[]; // Initialize countryData as an empty array
 
   constructor(
     private olympicService: OlympicService, // Inject OlympicService
