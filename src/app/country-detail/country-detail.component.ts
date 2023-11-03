@@ -3,8 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { Olympic, OlympicDataForCountry } from 'src/app/core/models/Olympic';
-import { Participation } from 'src/app/core/models/Participation';
-import { filter, mergeMap, map, first } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 @Component({
