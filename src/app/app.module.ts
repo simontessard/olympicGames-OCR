@@ -5,13 +5,24 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
-import { NgxChartsModule }from '@swimlane/ngx-charts';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CountryDetailComponent } from './country-detail/country-detail.component';
+import { CountryDetailComponent } from './components/country-detail/country-detail.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, NotFoundComponent, CountryDetailComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, NgxChartsModule, BrowserAnimationsModule],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    NotFoundComponent,
+    CountryDetailComponent,
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    NgxChartsModule,
+    BrowserAnimationsModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
