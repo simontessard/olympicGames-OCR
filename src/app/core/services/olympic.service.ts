@@ -10,11 +10,10 @@ import {
   mergeMap,
   tap,
 } from 'rxjs/operators';
-import {
-  Olympic,
-  OlympicChartData,
-  OlympicDataForCountry,
-} from '../models/Olympic';
+import { Olympic } from '../models/Olympic';
+import { PieChartData } from '../models/PieChartData';
+import { CountryStatsData } from '../models/Country';
+
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -53,13 +52,13 @@ export class OlympicService {
    */
   getOlympicsData(): Observable<{
     nbJo: number;
-    chartData: OlympicChartData[];
+    chartData: PieChartData[];
   }> {
     return this.olympics$.asObservable().pipe(
       filter((data: Olympic[]) => !!data),
       map((data: Olympic[]) => {
         const uniqueYears = new Set<number>();
-        const chartData: OlympicChartData[] = data.map((item: Olympic) => {
+        const chartData: PieChartData[] = data.map((item: Olympic) => {
           item.participations.forEach((participation) => {
             uniqueYears.add(participation.year);
           });
@@ -83,7 +82,7 @@ export class OlympicService {
    */
   getOlympicDataByCountryName(
     countryName: string | null
-  ): Observable<OlympicDataForCountry> {
+  ): Observable<CountryStatsData> {
     return this.getOlympics().pipe(
       filter((data: Olympic[]) => !!data),
       mergeMap((data: Olympic[]) => data), // Wait for data to be defined

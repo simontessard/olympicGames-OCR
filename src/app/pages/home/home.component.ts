@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { OlympicService } from 'src/app/core/services/olympic.service';
-import { OlympicChartData, CountryName } from 'src/app/core/models/Olympic';
+import { CountryName } from 'src/app/core/models/Country';
+import { PieChartData } from 'src/app/core/models/PieChartData';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  public countries!: OlympicChartData[]; // An array to store transformed Olympic data
+  public countries!: PieChartData[]; // An array to store transformed Olympic data
   public nbJO!: number; // A variable to store the number of Olympic participations
   private olympicsDataSubscription!: Subscription;
 
