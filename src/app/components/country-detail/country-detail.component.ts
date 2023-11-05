@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { CountryStatsData } from 'src/app/core/models/Country';
 import { Router } from '@angular/router';
