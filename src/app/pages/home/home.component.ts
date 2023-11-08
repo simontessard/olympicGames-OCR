@@ -24,9 +24,15 @@ export class HomeComponent implements OnInit {
     // When the component initializes, fetch Olympic data and transform it
     this.olympicsDataSubscription = this.olympicService
       .getOlympicsData()
-      .subscribe((data) => {
-        this.countries = data.chartData;
-        this.nbJO = data.nbJo;
+      .subscribe({
+        // Called when the Observable emits new data
+        next: (data) => {
+          this.countries = data.chartData;
+          this.nbJO = data.nbJo;
+        },
+        error: (error) => {
+          console.error('An error occurred:', error);
+        },
       });
   }
 
