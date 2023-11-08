@@ -21,7 +21,7 @@ import { Observable } from 'rxjs';
 })
 export class OlympicService {
   private olympicUrl = './assets/mock/olympic.json';
-  private olympics$ = new BehaviorSubject<any>(undefined);
+  private olympics$ = new BehaviorSubject<Olympic[]>([]);
 
   constructor(private http: HttpClient) {}
 
@@ -30,7 +30,7 @@ export class OlympicService {
       tap((value) => this.olympics$.next(value)),
       catchError((error, caught) => {
         console.error(error);
-        this.olympics$.next(null);
+        this.olympics$.next([]);
         return caught;
       })
     );
