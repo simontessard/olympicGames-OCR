@@ -11,17 +11,21 @@ import { Router } from '@angular/router';
   styleUrls: ['./country-detail.component.scss'],
 })
 export class CountryDetailComponent {
-  countryName: string | null = null; // Initialize countryName as null
-  public countryObservable!: Observable<CountryStatsData>; // Initialize countryObservable as undefined
+  // Variable to hold the name of the country
+  countryName: string | null = null;
+  // Observable to hold the country statistics data
+  public countryObservable!: Observable<CountryStatsData>;
 
   constructor(
-    private olympicService: OlympicService, // Inject OlympicService
-    private route: ActivatedRoute, // Inject ActivatedRoute
-    private router: Router // Inject Router
+    private olympicService: OlympicService,
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.countryName = this.route.snapshot.paramMap.get('id'); // Get the 'id' parameter from the route's snapshot
+    // Get the 'id' parameter from the route's snapshot
+    this.countryName = this.route.snapshot.paramMap.get('id');
+    // Fetch the Olympic data for the country
     this.countryObservable = this.olympicService.getOlympicDataByCountryName(
       this.countryName
     );

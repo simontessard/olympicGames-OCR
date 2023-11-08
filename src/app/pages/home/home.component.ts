@@ -13,6 +13,9 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
   public countries!: PieChartData[]; // An array to store transformed Olympic data
   public nbJO!: number; // A variable to store the number of Olympic participations
+
+  // Used to hold the subscription to the Observable returned by the service.
+  // The '!' is a non-null assertion operator used to tell TypeScript that the variable will not be null or undefined.
   private olympicsDataSubscription!: Subscription;
 
   constructor(private olympicService: OlympicService, private router: Router) {}
